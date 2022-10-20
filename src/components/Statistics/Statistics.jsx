@@ -4,6 +4,8 @@ import {
   StatisticsTitle,
   StatisticsList,
   StatisticsItem,
+  StatisticsItemName,
+  StatisticsItemValue,
 } from './Statistics.styled';
 
 export const Statistics = props => {
@@ -17,9 +19,14 @@ export const Statistics = props => {
           {Object.keys(props).map((item, index) => {
             return (
               <StatisticsItem key={index}>
-                <p>
-                  {item}: <span>{props[item]}</span>
-                </p>
+                <StatisticsItemName>
+                  {item}:{' '}
+                  <StatisticsItemValue>
+                    {item !== 'positivePercentage'
+                      ? props[item]
+                      : `${props[item]}%`}
+                  </StatisticsItemValue>
+                </StatisticsItemName>
               </StatisticsItem>
             );
           })}

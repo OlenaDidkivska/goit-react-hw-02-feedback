@@ -11,10 +11,16 @@ export const FeedbackItem = styled.li`
 `;
 
 export const FeedbackButton = styled.button`
-  background-color: #ffffff;
+  background-color: #38ed83;
   padding: 5px 10px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
 
   &:hover {
-    background-color: #3860dd;
+    background-color: #00c518;
+    transform: scale(1.1);
+    color: #ffffff;
+    font-weight: 400;
   }
 `;
