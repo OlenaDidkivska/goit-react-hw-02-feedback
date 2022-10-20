@@ -6,40 +6,25 @@ import {
   StatisticsItem,
 } from './Statistics.styled';
 
-export const Statistics = ({
-  good,
-  neutral,
-  bad,
-  total,
-  positivePercentage,
-}) => {
+export const Statistics = props => {
   return (
     <>
       <StatisticsTitle>Statistics</StatisticsTitle>
-      <StatisticsList>
-        {total === 0 ? (
-          <Notification message="There is no feedback" />
-        ) : (
-          <div>
-            <StatisticsItem>
-              Good: <span>{good}</span>
-            </StatisticsItem>
-            <StatisticsItem>
-              Neutral: <span>{neutral}</span>
-            </StatisticsItem>
-            <StatisticsItem>
-              Bad: <span>{bad}</span>
-            </StatisticsItem>
-            <StatisticsItem>
-              Total: <span>{total}</span>
-            </StatisticsItem>
-            <StatisticsItem>
-              Positive feedback:
-              <span> {positivePercentage}%</span>
-            </StatisticsItem>
-          </div>
-        )}
-      </StatisticsList>
+      {props.total === 0 ? (
+        <Notification message="There is no feedback" />
+      ) : (
+        <StatisticsList>
+          {Object.keys(props).map((item, index) => {
+            return (
+              <StatisticsItem key={index}>
+                <p>
+                  {item}: <span>{props[item]}</span>
+                </p>
+              </StatisticsItem>
+            );
+          })}
+        </StatisticsList>
+      )}
     </>
   );
 };

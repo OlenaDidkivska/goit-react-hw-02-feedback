@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { AppEl } from './App.styled';
 import { Section } from './Section/Section';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
 
-export class App extends React.Component {
+export class App extends Component {
   state = { good: 0, neutral: 0, bad: 0 };
 
   handleClickGood = () => {
@@ -32,22 +32,30 @@ export class App extends React.Component {
   }
 
   render() {
+    const {
+      handleClickGood,
+      handleClickNeutral,
+      handleClickBad,
+      countTotalFeedback,
+      countPositiveFeedbackPercentage,
+    } = this;
+    const { good, neutral, bad } = this.state;
     return (
       <AppEl>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            onClickGood={this.handleClickGood}
-            onClickNeutral={this.handleClickNeutral}
-            onClickBad={this.handleClickBad}
+            onClickGood={handleClickGood}
+            onClickNeutral={handleClickNeutral}
+            onClickBad={handleClickBad}
           />
           <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={this.countTotalFeedback(this.state)}
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={countTotalFeedback(this.state)}
             positivePercentage={
-              this.countPositiveFeedbackPercentage(this.state)
-                ? this.countPositiveFeedbackPercentage(this.state)
+              countPositiveFeedbackPercentage(this.state)
+                ? countPositiveFeedbackPercentage(this.state)
                 : 0
             }
           />
