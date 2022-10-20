@@ -2,7 +2,6 @@ import { Notification } from 'components/Notification/Notification';
 import PropTypes from 'prop-types';
 import {
   StatisticsTitle,
-  StatisticsList,
   StatisticsItem,
   StatisticsItemName,
   StatisticsItemValue,
@@ -15,7 +14,7 @@ export const Statistics = props => {
       {props.total === 0 ? (
         <Notification message="There is no feedback" />
       ) : (
-        <StatisticsList>
+        <ul>
           {Object.keys(props).map((item, index) => {
             return (
               <StatisticsItem key={index}>
@@ -30,7 +29,7 @@ export const Statistics = props => {
               </StatisticsItem>
             );
           })}
-        </StatisticsList>
+        </ul>
       )}
     </>
   );
