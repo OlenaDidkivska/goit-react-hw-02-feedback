@@ -4,29 +4,23 @@ import {
   FeedbackItem,
   FeedbackButton,
 } from './FeedbackOptions.styled';
+import { nanoid } from 'nanoid';
 
-export const FeedbackOptions = ({
-  onClickGood,
-  onClickNeutral,
-  onClickBad,
-}) => {
+export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <FeedbackList>
-      <FeedbackItem>
-        <FeedbackButton type="button" onClick={onClickGood}>
-          Good
-        </FeedbackButton>
-      </FeedbackItem>
-      <FeedbackItem>
-        <FeedbackButton type="button" onClick={onClickNeutral}>
-          Neutral
-        </FeedbackButton>
-      </FeedbackItem>
-      <FeedbackItem>
-        <FeedbackButton type="button" onClick={onClickBad}>
-          Bad
-        </FeedbackButton>
-      </FeedbackItem>
+      {options.map(button => {
+        return (
+          <FeedbackItem key={nanoid()}>
+            <FeedbackButton
+              type="button"
+              onClick={() => onLeaveFeedback(button)}
+            >
+              {button}
+            </FeedbackButton>
+          </FeedbackItem>
+        );
+      })}
     </FeedbackList>
   );
 };

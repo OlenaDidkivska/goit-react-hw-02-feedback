@@ -7,57 +7,44 @@ import { Statistics } from './Statistics/Statistics';
 export class App extends Component {
   state = { good: 0, neutral: 0, bad: 0 };
 
-  handleClickGood = () => {
+  onLeaveFeedback = option => {
     this.setState(prevState => ({
-      good: prevState.good + 1,
-    }));
-  };
-  handleClickNeutral = () => {
-    this.setState(prevState => ({
-      neutral: prevState.neutral + 1,
-    }));
-  };
-  handleClickBad = () => {
-    this.setState(prevState => ({
-      bad: prevState.bad + 1,
+      [option]: prevState[option] + 1,
     }));
   };
 
-  countTotalFeedback = ({ good, neutral, bad }) => {
-    return good + neutral + bad;
+  countTotalFeedback = () => {
+    const TotalFeedback = Object.values(this.state);
+    return TotalFeedback.reduce((acc, item) => acc + item, 0);
   };
 
-  countPositiveFeedbackPercentage({ good, neutral, bad }) {
-    return Math.round((good / (good + neutral + bad)) * 100);
-  }
+  countPositiveFeedbackPercentage = (good, total) => {
+    return Math.round((good / total) * 100);
+  };
 
   render() {
     const {
-      handleClickGood,
-      handleClickNeutral,
-      handleClickBad,
+      onLeaveFeedback,
       countTotalFeedback,
       countPositiveFeedbackPercentage,
     } = this;
     const { good, neutral, bad } = this.state;
+    const options = Object.keys(this.state);
+    const total = countTotalFeedback();
+    const positivePercentage = countPositiveFeedbackPercentage(good, total);
     return (
       <AppEl>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            onClickGood={handleClickGood}
-            onClickNeutral={handleClickNeutral}
-            onClickBad={handleClickBad}
-          />
+            options={options}
+            onLeaveFeedback={onLeaveFeedback}
+          ></FeedbackOptions>
           <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
-            total={countTotalFeedback(this.state)}
-            positivePercentage={
-              countPositiveFeedbackPercentage(this.state)
-                ? countPositiveFeedbackPercentage(this.state)
-                : 0
-            }
+            total={total}
+            positivePercentage={good !== 0 ? positivePercentage : 0}
           />
         </Section>
       </AppEl>
