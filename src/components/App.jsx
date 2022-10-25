@@ -19,7 +19,8 @@ export class App extends Component {
   };
 
   countPositiveFeedbackPercentage = (good, total) => {
-    return Math.round((good / total) * 100);
+    const positive = Math.round((good / total) * 100) || 0;
+    return Number.isNaN(positive) ? 0 : positive;
   };
 
   render() {
@@ -44,7 +45,7 @@ export class App extends Component {
             neutral={neutral}
             bad={bad}
             total={total}
-            positivePercentage={good !== 0 ? positivePercentage : 0}
+            positivePercentage={positivePercentage}
           />
         </Section>
       </AppEl>
